@@ -73,6 +73,66 @@ QuickNode provides network connectivity, not custody or transaction authorizatio
 The first milestone is a successful fee JSON-RPC request to your own endpoint, following QuickNode's XRPL QuickStart. 
 
 Quicknode Docs
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 Python example — network connectivity only
+
+import os
+import requests
+
+endpoint = os.environ["QUICKNODE_XRPL_HTTP_URL"]
+
+payload = {
+    "method": "fee",
+    "params": [{}]
+}
+
+response = requests.post(
+    endpoint,
+    json=payload,
+    timeout=15
+)
+response.raise_for_status()
+
+data = response.json()
+
+if "error" in data or "error" in data.get("result", {}):
+    raise RuntimeError(data)
+
+print("XRPL fee response:")
+print(data)
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Install the basic dependency:
+pip install requests
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Set QUICKNODE_XRPL_HTTP_URL to the complete HTTP provider URL from your dashboard. The endpoint ID alone is not sufficient to connect.
+
+Expected outcome: a successful response containing XRPL fee information. This is a documented expected result, not a live test of your private endpoint.
+5. Interactive project configuration
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Proposed development timeline
+QuickNode and XRPL integration
+
+Wallet and payment services
+AI agents and security
+Dashboard and real-time events
+Testing and deployment
+
+Illustrative eight-week MVP schedule, not completed work or measured progress.
+
+7. Target outcome
+The finished MVP should demonstrate a connected QuickNode XRPL endpoint, live ledger information, XRP/RLUSD Testnet payments, validated transaction receipts, and an AI agent capable of initiating transactions under predefined spending policies.
+
+For production, it should additionally have hardened signing infrastructure, compliance controls, secure key management, monitoring, and operational recovery procedures.
+
+Current status: the product concept, architecture, setup instructions, and first connection example are prepared. Your private QuickNode endpoint has not yet been connected or tested, and no on-chain transaction has been executed.
+
+The next deliverable is the downloadable, executable application using your QuickNode provider URL supplied securely through environment configuration, with Testnet as the default.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
